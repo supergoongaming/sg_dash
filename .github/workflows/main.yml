@@ -1,0 +1,53 @@
+name: Build All Platforms
+run-name: "Build All Platforms: ${{ github.actor }} 🚀"
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+jobs:
+  Build-Linux:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Status Updates.
+        run: |
+          echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+          echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+          echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
+      - name: Configure CMake
+        run: |
+          make brebuild
+      - run: echo "🍏 This job's status is ${{ job.status }}."
+  # Build-Macos:
+  #   runs-on: macos-latest
+  #   steps:
+  #     - name: Check out repository code
+  #       uses: actions/checkout@v3
+  #     - name: Configure CMake
+  #       run: make xrebuild
+  # Build-Emscripten:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #       with:
+  #         repository: emscripten-core/emsdk
+  #         ref: 3.1.44
+  #         path: emsdk
+  #     - name: Install emscripten
+  #       run: cd emsdk && ./emsdk install latest && ./emsdk activate latest && echo '/home/runner/work/goonDash/goonDash/emsdk' >> $GITHUB_PATH && echo '/home/runner/work/goonDash/goonDash/emsdk/upstream/emscripten' >> $GITHUB_PATH && echo $GITHUB_PATH && echo 'source "/home/runner/work/goonDash/goonDash/emsdk/emsdk_env.sh"' >> $HOME/.bash_profile
+  #     - name: Check out repository code
+  #       uses: actions/checkout@v3
+  #     - name: Configure CMake
+  #       run: export make erebuild
+  # Build-Windows:
+  #   runs-on: windows-latest
+  #   steps:
+  #     - name: Check out repository code
+  #       uses: actions/checkout@v3
+  #     - name: Configure CMake
+  #       run: make wrebuild
